@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/*
+  Design tokens live in src/styles/theme.ts and are injected as
+  --theme-* variables on :root from layout.tsx. Map them here for Tailwind.
+*/
+@theme inline {
+  --color-canvas: var(--theme-canvas);
+  --color-bg: var(--theme-bg);
+  --color-bg-elevated: var(--theme-bg-elevated);
+  --color-bg-dark: var(--theme-bg-dark);
+  --color-ink: var(--theme-ink);
+  --color-ink-muted: var(--theme-ink-muted);
+  --color-ink-on-dark: var(--theme-ink-on-dark);
+  --color-ink-muted-on-dark: var(--theme-ink-muted-on-dark);
+  --color-line: var(--theme-line);
+  --color-line-soft: var(--theme-line-soft);
+  --color-line-on-dark: var(--theme-line-on-dark);
+  --color-accent: var(--theme-accent);
+  --color-accent-ink: var(--theme-accent-ink);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+
+  --text-hero: var(--theme-type-hero);
+  --text-section: var(--theme-type-section);
+  --text-project: var(--theme-type-project);
+  --text-panel: var(--theme-type-panel);
+  --text-body: var(--theme-type-body);
+  --text-body-sm: var(--theme-type-body-sm);
+  --text-label: var(--theme-type-label);
+
+  --spacing-section-y: var(--theme-section-y);
+  --spacing-section-y-sm: var(--theme-section-y-sm);
+  --spacing-section-x: var(--theme-section-x);
+  --spacing-section-x-lg: var(--theme-section-x-lg);
+  --spacing-stack: var(--theme-stack);
+  --spacing-stack-lg: var(--theme-stack-lg);
+  --spacing-panel-gap: var(--theme-panel-gap);
+
+  --radius-panel: var(--theme-radius-panel);
+  --radius-control: var(--theme-radius-control);
+  --radius-pill: var(--theme-radius-pill);
+
+  --max-width-layout: var(--theme-layout-max);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  color: var(--theme-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Hand cursor on every clickable control. Text keeps the normal caret. */
+a[href],
+button,
+[role="button"],
+[role="tab"],
+summary {
+  cursor: pointer;
+}
+
+
+.ruled-sides {
+  background-color: var(--theme-bg);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 5px,
+    var(--theme-line-soft) 5px,
+    var(--theme-line-soft) 6px
+  );
+  padding-left: 0.85rem;
+  padding-right: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .ruled-sides {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.grain,
+.grain-dark {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: multiply;
+  opacity: 0.22;
+}
+
+.grain-dark {
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
+}
+
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track,
+.marquee-reverse {
+  animation: marquee-rtl var(--theme-marquee-duration) linear infinite;
+  will-change: transform;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+.tech-fade {
+  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+}
+
+.hero-reel {
+  animation: marquee-rtl 22s linear infinite;
+  will-change: transform;
+}
+
+@keyframes image-loop-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.image-loop-x {
+  animation: image-loop-x 40s linear infinite;
+  will-change: transform;
+}
+
+.image-loop-x:hover {
+  animation-play-state: paused;
+}
+
+.nav-pill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--theme-ink);
+  background: transparent;
+}
+
+.nav-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--theme-ink);
+  transform: translateX(-102%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.nav-pill:hover::before,
+.nav-pill:focus-visible::before {
+  transform: translateX(0);
+}
+
+.nav-pill:hover,
+.nav-pill:focus-visible {
+  color: var(--theme-ink-inverse);
+  border-color: var(--theme-ink);
+}
+
+.nav-pill-solid {
+  background: var(--theme-ink);
+  color: var(--theme-ink-on-dark);
+  border-color: var(--theme-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .marquee-reverse,
+  .hero-reel,
+  .image-loop-x {
+    animation: none;
+    transform: none;
+  }
+
+  .project-shots {
+    overflow-x: auto;
+  }
+
+  .nav-pill::before {
+    transition: none;
+  }
+}
