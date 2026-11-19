@@ -1,4 +1,4 @@
-# Ishma Khan — Portfolio
+# Nazish Khan — Portfolio
 
 Personal portfolio (v1): hero, tech marquee, and numbered project accordion with inline case studies.
 
